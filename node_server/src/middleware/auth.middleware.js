@@ -7,7 +7,6 @@ const errorTypes = require("../constants/error-type");
 const verifyLogin = async (ctx, next) => {
   //验证登录
   const { name, password } = ctx.request.body;
-
   //判断用户名和密码是否正确
   const result = await service.getUserInfoByname(name);
   if (result === undefined) {

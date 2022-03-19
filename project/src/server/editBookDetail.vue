@@ -6,7 +6,7 @@
       </div>
       <mavon-editor
         v-model="value"
-        style="min-height: 500px"
+        style="min-height: calc(100vh - 60px)"
         :boxShadow="false"
         @change="changeData"
         :ishljs="true"
@@ -14,18 +14,18 @@
         @imgAdd="$imgAdd"
         @save="IsUpdateOrSave"
       />
-      <article v-html="render" class="markdown-body"></article>
+      <!-- <article v-html="render" class="markdown-body"></article> -->
     </div>
   </div>
 </template>
 
 <script>
 import { marked } from "marked";
-import { uploadImg, pageCode,getMdText,updateCode } from "@/utils/api.js";
+import { uploadImg, pageCode, getMdText, updateCode } from "@/utils/api.js";
 export default {
   name: "editBookDetail",
-  created () {
-    this.getCode()
+  created() {
+    this.getCode();
   },
   data() {
     return {
@@ -47,16 +47,16 @@ export default {
     },
 
     save() {
-      if(!this.value){
+      if (!this.value) {
         this.$message({
-          type:'warning',
-          message:'编辑内容不能为空',
-          duration:1300
-        })
-        return
+          type: "warning",
+          message: "编辑内容不能为空",
+          duration: 1300,
+        });
+        return;
       }
       const { chapterId } = this.$route.query;
-      pageCode(chapterId, this.render,this.value).then((res) => {
+      pageCode(chapterId, this.render, this.value).then((res) => {
         if (res) {
           this.$message({
             type: "success",
@@ -66,35 +66,38 @@ export default {
         }
       });
     },
-    updateMd(){
+    updateMd() {
       const { chapterId } = this.$route.query;
-      updateCode(chapterId,this.render,this.value).then(res=>{
-        if(res.data){
-           this.$message({
+      updateCode(chapterId, this.render, this.value).then((res) => {
+        if (res.data) {
+          this.$message({
             type: "success",
             duration: 1500,
             message: res.data,
           });
         }
-      })
+      });
     },
-    getCode(){
-      const { chapterId }= this.$route.query;
-      getMdText(chapterId).then(
-        res=>{
-         this.render =  res.data[0].md_text;
-         this.value = res.data[0].val
-        }
-      )
+    getCode() {
+      const { chapterId } = this.$route.query;
+      getMdText(chapterId).then((res) => {
+        this.render = res.data[0].md_text;
+        this.value = res.data[0].val;
+      });
     },
-    IsUpdateOrSave(){
-      if(!this.value){
-        this.save()
-      }else{
-       this.updateMd()
+    IsUpdateOrSave() {
+      if (!this.value) {
+        this.save();
+        setTimeout(() => {
+          this.$router.back();
+        },1000);
+      } else {
+        this.updateMd();
+        setTimeout(() => {
+          this.$router.back();
+        },1000);
       }
-    }
-
+    },
   },
 };
 </script>

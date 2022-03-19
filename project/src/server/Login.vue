@@ -15,7 +15,7 @@
             placeholder="password"
             v-model="user.password"
           />
-          <button @click.prevent="submitInfo()">login</button>
+          <button @click.prevent="submitInfo()">登   录</button>
         </form>
       </div>
     </div>

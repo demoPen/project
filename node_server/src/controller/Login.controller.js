@@ -11,6 +11,7 @@ class LoginController{
       algorithm:'RS256',
       expiresIn: 60*60*24
     });
+    
     ctx.body = {id,name,token,'msg':'登录成功'}
   }
 }
