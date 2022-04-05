@@ -2,7 +2,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-require('./utils/element-ui')
+// require('./utils/element-ui')
+import './utils/element-ui'
+import './utils/st.css'
 
 
 import mavonEditor from 'mavon-editor'

@@ -13,10 +13,16 @@ const errorHandler = async (error,ctx) =>{
        break;
        case errorTypes.USER_NAME_IS_NOT_EXIST:  
        status =400;
-       message = errorTypes.USER_NAME_IS_NOT_EXIST;  
+       message = errorTypes.USER_NAME_IS_NOT_EXIST; 
+       break; 
        case errorTypes.CHAPTER_NAME_DOES_NOT_SAME:
          status = 400;
-         message = errorTypes.CHAPTER_NAME_DOES_NOT_SAME              
+         message = errorTypes.CHAPTER_NAME_DOES_NOT_SAME  
+         break; 
+        case errorTypes.ARTICLE_NAME_DOES_NOT_SAME:
+          status = 400;
+          message = errorTypes.ARTICLE_NAME_DOES_NOT_SAME
+          break           
      default:
         status = 400 
    }

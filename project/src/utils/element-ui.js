@@ -12,7 +12,8 @@ import {
   Dialog,
   Upload,
   MessageBox,
-  Tooltip
+  Tooltip,
+  Empty
 } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
@@ -27,6 +28,7 @@ Vue.use(Form);
 Vue.use(Dialog);
 Vue.use(Upload)
 Vue.use(Tooltip)
+Vue.use(Empty)
 
 
 Vue.use(Radio);

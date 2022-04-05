@@ -5,12 +5,11 @@
         >添加书籍</el-button
       >
     </div>
-
     <el-table
       stripe
       border
-      style="width: 100%; margin-top: 50px"
-      height="500"
+      style="width: 100%;"
+      height="calc(100vh - 41px)"
       :data="orderbooklist"
     >
       <el-table-column label="序号" width="100" type="index" align="center">
@@ -35,9 +34,11 @@
           <span>{{ handleDate(scope.row.updateTime) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="详情" align="center" width="120">
+      <el-table-column label="详情" align="center" width="100">
         <template slot-scope="scope">
-        <el-button type="text" size="small" @click="bookDetail(scope.row.id)">查看书籍</el-button>
+          <el-button type="text" size="small" @click="bookDetail(scope.row.id)"
+            >查看书籍</el-button
+          >
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center">
@@ -54,7 +55,10 @@
             "
             >编辑</el-button
           >
-          <el-button type="danger" size="small" @click="deleteBook(scope.row.id)"
+          <el-button
+            type="danger"
+            size="small"
+            @click="deleteBook(scope.row.id)"
             >删除</el-button
           >
         </template>
@@ -80,9 +84,9 @@
       </div>
       <el-form>
         <el-form-item label="书籍名称">
-          <el-input v-model="name" type='text'></el-input>
+          <el-input v-model="name" type="text"></el-input>
         </el-form-item>
-        <el-form-item label="排序权重" >
+        <el-form-item label="排序权重">
           <el-input v-model="orderBy" type="number"></el-input>
         </el-form-item>
       </el-form>
@@ -125,7 +129,7 @@ export default {
         this.booklist = bookTable;
         this.handleBooklist();
       });
-    },//获取所有书籍的数据
+    }, //获取所有书籍的数据
     getUploadUrl() {
       return "http://127.0.0.1:9000/file/book";
     },
@@ -152,17 +156,17 @@ export default {
           })
           .then((res) => {
             this.$message({
-            type: "success",
-            message: `${res.data}`,
-            duration: 1300,
-          });
+              type: "success",
+              message: `${res.data}`,
+              duration: 1300,
+            });
             this.isShow = false;
             this.orderBy = "";
             this.name = "";
-            this.img = ''
+            this.img = "";
             console.log(this.name);
             this.getBookList();
-          }) ;
+          });
       } else {
         const name = this.name;
         const order = this.orderBy;
@@ -177,7 +181,7 @@ export default {
           this.isShow = false;
           this.orderBy = "";
           this.name = "";
-          this.img = ''
+          this.img = "";
           this.getBookList();
         });
       }
@@ -186,7 +190,8 @@ export default {
       let appointDate = /\d{4}-\d{1,2}-\d{1,2}/g.exec(e)[0];
       return appointDate;
     }, //处理日期
-    handleBooklist() {//根据权重进行排序
+    handleBooklist() {
+      //根据权重进行排序
       this.orderbooklist = this.booklist.sort(function (a, b) {
         return a.order - b.order;
       });
@@ -199,7 +204,8 @@ export default {
       this.orderBy = order;
       this.name = title;
     }, //编辑书籍
-    deleteBook(id) {//删除书籍
+    deleteBook(id) {
+      //删除书籍
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -216,10 +222,10 @@ export default {
         });
       });
     },
-    bookDetail(id){
-      this.$router.push('/server/chapter/'+ id)
-    console.log(id);
-    }
+    bookDetail(id) {
+      this.$router.push("/server/chapter/" + id);
+      console.log(id);
+    },
   },
   mounted() {
     this.handleBooklist();
@@ -241,8 +247,8 @@ export default {
   justify-content: center;
   display: flex;
   background-color: rgb(102, 177, 255);
-  position: fixed;
+  /* position: fixed; */
   z-index: 2;
-  width: calc(100% - 70px);
+  width: 100%;
 }
 </style>

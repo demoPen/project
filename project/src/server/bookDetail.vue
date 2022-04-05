@@ -7,11 +7,17 @@
     </div>
     <el-table
       :data="tableData"
-      height="530"
+      height="calc(100vh - 40px)"
       border
+      stripe
       style="width: 100%"
       :cell-style="handleText"
     >
+      <template slot="empty"
+        ><img
+          height="100"
+          src="https://gw.alipayobjects.com/mdn/miniapp_social/afts/img/A*pevERLJC9v0AAAAAAAAAAABjAQAAAQ/original"
+      /></template>
       <el-table-column
         label="序号"
         width="180"

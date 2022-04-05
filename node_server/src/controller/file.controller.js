@@ -92,8 +92,7 @@ class Filecontroller {
 
   async saveCode(ctx,next){
     const {chapterId,render,value}= ctx.request.body;
-   await fileServer.saveHtml(chapterId,render,value);
-  
+    await fileServer.saveHtml(chapterId,render,value);
     ctx.body = '保存成功'
   };
   async getCodeHtml(ctx,next){

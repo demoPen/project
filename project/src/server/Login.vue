@@ -8,7 +8,7 @@
             placeholder="username"
             v-model="user.name"
             autofocus
-            autocomplete="off"
+      
           />
           <input
             type="password"
@@ -36,6 +36,7 @@ export default {
     };
   },
   methods: {
+ 
     submitInfo() {
       const { name, password } = this.user;
       if (name && password) {
@@ -54,6 +55,7 @@ export default {
             }, 1000);
           })
           .catch((err) => {
+            console.log(err);
             if (err) {
               Object.keys(this.user).forEach((item) => {
                 this.user[item] = "";

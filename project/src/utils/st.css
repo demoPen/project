@@ -1,0 +1,21 @@
+/* .content{
+
+  color:blue;
+}
+.el-table th.el-table__cell>.cell{
+  color: red;
+} */
+.el-button {
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+}
+.el-input__inner {
+  border-radius: 1px;
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  -ms-border-radius: 1px;
+  -o-border-radius: 1px;
+} 

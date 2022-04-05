@@ -77,7 +77,7 @@ label:hover {
   box-shadow:  0 1px 2px rgb(78, 77, 77);
 }
 .left-nav input:checked ~ ul {
-  width: 200px;
+  width: 190px;
   z-index: -1;
 }
 .left-nav input:checked ~ label {
@@ -92,7 +92,7 @@ label:hover {
   /* background-color: red; */
   flex-direction: row;
   justify-content: space-around;
-  width: 200px;
+  width: 190px;
   padding: 0 30px;
 }
 .left-nav input:checked ~ ul .item-li >>> .text {
@@ -103,7 +103,7 @@ label:hover {
 }
 ul {
   height: 100vh;
-  width: 60px;
+  width: 50px;
   overflow: hidden;
   transition: all 0.5s;
 }

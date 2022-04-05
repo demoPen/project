@@ -26,14 +26,30 @@ export default {
   name: "editBookDetail",
   created() {
     this.getCode();
+    // window.addEventListener('popstate',this.popstate,false)
+  },
+  destroyed() {
+    // window.removeEventListener('popstate',this.popstate,false)
   },
   data() {
     return {
       value: "",
       render: "",
+      first: "",
     };
   },
   methods: {
+    // popstate(){
+    //    this.$confirm('当前内容为保存是否保存', '提示', {
+    //       confirmButtonText: '保存',
+    //       cancelButtonText: '不保存',
+    //       type: 'info'
+    //     }).then(()=>{
+    //       this.IsUpdateOrSave()
+    //     }).catch(()=>{
+    //       this.$router.back()
+    //     })
+    // },//浏览器的前进和后退
     changeData(value, render) {
       this.render = marked(render);
       // console.log(marked('injjsj'));
@@ -53,7 +69,7 @@ export default {
           message: "编辑内容不能为空",
           duration: 1300,
         });
-        return;
+        return false;
       }
       const { chapterId } = this.$route.query;
       pageCode(chapterId, this.render, this.value).then((res) => {
@@ -65,6 +81,7 @@ export default {
           });
         }
       });
+      return true
     },
     updateMd() {
       const { chapterId } = this.$route.query;
@@ -81,21 +98,26 @@ export default {
     getCode() {
       const { chapterId } = this.$route.query;
       getMdText(chapterId).then((res) => {
+        this.first = res.data;
+
         this.render = res.data[0].md_text;
         this.value = res.data[0].val;
       });
     },
     IsUpdateOrSave() {
-      if (!this.value) {
-        this.save();
-        setTimeout(() => {
-          this.$router.back();
-        },1000);
+      if (this.first.length == 0) {
+        const jump = this.save();
+        console.log(jump)
+        if (jump) {
+          setTimeout(() => {
+            this.$router.back();
+          }, 1000);
+        }
       } else {
         this.updateMd();
         setTimeout(() => {
           this.$router.back();
-        },1000);
+        }, 1000);
       }
     },
   },
@@ -107,6 +129,7 @@ export default {
   padding-left: 10px;
   width: calc(100% - 70px);
   background-color: rgb(168, 168, 168);
+  overflow: scroll;
 }
 .input-groups {
   display: flex;

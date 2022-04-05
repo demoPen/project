@@ -32,8 +32,6 @@ const innerImgUploads = Multer({
 const coverHandle = coverUploads.single("cover"); //封面的图片
 const innerImgContent = innerImgUploads.single('image')//文章里的图片
 
-
-
 module.exports = {
   coverHandle,
   createFileTable,
