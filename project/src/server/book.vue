@@ -12,6 +12,11 @@
       height="calc(100vh - 41px)"
       :data="orderbooklist"
     >
+    <template slot="empty"
+            ><img
+              height="100"
+              src="https://gw.alipayobjects.com/mdn/miniapp_social/afts/img/A*pevERLJC9v0AAAAAAAAAAABjAQAAAQ/original"
+          /></template>
       <el-table-column label="序号" width="100" type="index" align="center">
       </el-table-column>
       <el-table-column label="书籍名称" width="220" align="center">

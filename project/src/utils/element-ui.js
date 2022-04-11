@@ -13,7 +13,12 @@ import {
   Upload,
   MessageBox,
   Tooltip,
-  Empty
+  Empty,
+  Carousel,
+  CarouselItem,
+  Card,
+  Row,
+  Col
 } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
@@ -29,6 +34,11 @@ Vue.use(Dialog);
 Vue.use(Upload)
 Vue.use(Tooltip)
 Vue.use(Empty)
+Vue.use(Carousel)
+Vue.use(CarouselItem)
+Vue.use(Card)
+Vue.use(Col)
+Vue.use(Row)
 
 
 Vue.use(Radio);

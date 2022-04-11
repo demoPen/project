@@ -81,7 +81,7 @@ export default {
           });
         }
       });
-      return true
+      return true;
     },
     updateMd() {
       const { chapterId } = this.$route.query;
@@ -107,7 +107,7 @@ export default {
     IsUpdateOrSave() {
       if (this.first.length == 0) {
         const jump = this.save();
-        console.log(jump)
+        console.log(jump);
         if (jump) {
           setTimeout(() => {
             this.$router.back();
@@ -142,7 +142,9 @@ export default {
 .article {
   height: 100px;
 }
-img {
-  width: 100px;
+
+.bookcc >>> .markdown-body .hljs-left p {
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>

@@ -181,7 +181,7 @@ export default {
         return " letter-spacing:2px;color:rgb(122, 130, 138);font-weight:600";
       }
       if (columnIndex === 1) {
-        return "letter-spacing:2px";
+        return "letter-spacing:1px;font-weight:bold;";
       }
     },
     handleDate(e) {
@@ -213,4 +213,5 @@ export default {
   justify-content: center;
   background-color: rgb(102, 177, 255);
 }
+
 </style>
