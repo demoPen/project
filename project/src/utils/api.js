@@ -19,6 +19,38 @@ import request from './request'
       }
  })
 }
+function getArticleCode(articleId){
+  return request({
+    url:'/article/code',
+    method:'GET',
+    params:{
+     articleId
+    }
+  })
+}
+function saveArticle(articleId,render,value){
+  return request({
+    url:'/article/code',
+    method:'POST',
+    data:{
+      articleId,
+      render,
+      value
+    }
+})
+}
+
+function updateArticle(articleId,render,value){
+  return request({
+    url:'/article/code/article',
+    method:'PATCH',
+    data:{
+       articleId,
+       render,
+       value
+    }
+  })
+}
 
 function updateCode(chapterId,render,value){
   return request({
@@ -46,5 +78,8 @@ export {
   uploadImg,
   pageCode,
   getMdText,
-  updateCode
+  updateCode,
+  getArticleCode,
+  saveArticle,
+  updateArticle
 }

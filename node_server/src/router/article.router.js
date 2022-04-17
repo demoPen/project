@@ -1,5 +1,5 @@
 const Router = require('koa-router')
-const fs = require('fs')
+
 
 const {
   verityToken
@@ -8,12 +8,18 @@ const {
 const {
   createArticle,
   verifyIsName,
-  uploads
+  createCode
 } = require('../middleware/article.middleware')
 const {
-  saveArticleInfo
+  saveArticleInfo,
+  getInfo,
+  updateInfo,
+  deleteInfo,
+  getCodeHtml,
+  saveCode,
+  updateCode
 } = require('../controller/article.controller')
-const { log } = require('console')
+
 
 const articleRouter = new Router({
   prefix: '/article'
@@ -21,15 +27,12 @@ const articleRouter = new Router({
 
 
 articleRouter.post('/create', verityToken, createArticle, verifyIsName, saveArticleInfo)
-articleRouter.post('/upload',uploads,(ctx,next)=>{
-  // const info = ctx.req.files
-  // const {filename} = ctx.request.req.file
-  // fs.readFile(`./uploads/video/${filename}`,(err,data)=>{
-  //   console.log(data);
-  // })
-  // console.log(info);
-  ctx.body = 'iiii'
-})
-
+articleRouter.get('/',getInfo)
+articleRouter.patch('/:id',verityToken,updateInfo)
+articleRouter.delete('/:id',verityToken,deleteInfo)
+// articleRouter.post('/code',saveCode);
+articleRouter.get('/code',createCode,getCodeHtml)
+articleRouter.post('/code',saveCode);
+articleRouter.patch('/code/article',updateCode);
 
 module.exports = articleRouter

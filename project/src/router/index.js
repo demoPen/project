@@ -68,7 +68,7 @@ const routes = [{
       },
       {
         path:'sarticle',
-        component:Serverarticle
+        component:Serverarticle,
       },
       {
         path:'svideo',
@@ -101,4 +101,6 @@ const router = new VueRouter({
   routes,
 });
 
-export default router;
+  
+
+export default router

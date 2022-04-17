@@ -1,56 +1,33 @@
 <template>
   <div class="home">
     <div style="font-size: 18px; background: #fff; padding: 20px">精选书籍</div>
-    <div class="showCard" style="padding: 10px 40px">
-      <div class="card">
-        <img src="@/assets/img/login.png" alt="" />
-        <div style="font-size: 14px; font-weight: bold">
-          介绍hhhhhhhhhah哈哈哈哈哈哈
+    <div class="showCard" style="padding: 10px 20px" >
+      <div class="card" v-for="item in bookData" :key="item.id" v-show ='bookData.length!==0'>
+        <img :src="item.img" alt="" />
+        <div style="font-size: 14px; font-weight: bold;text-align:center">
+          {{ item.title }}
         </div>
         <div class="text">
-          <div style="line-height: 28px; font-size: 12px">2022</div>
-          <el-button size="mini">Yue</el-button>
+          <div style="line-height: 28px; font-size: 12px">
+            {{ handleDate(item.updateTime) }}
+          </div>
+          <el-button size="mini">阅读</el-button>
         </div>
       </div>
-
-      <div class="card">
-        <img src="@/assets/img/login.png" alt="" />
-        <div style="font-size: 14px; font-weight: bold">
-          介绍hhhhhhhhhah哈哈哈哈哈哈
+      <div class="empty" v-show="bookData.length==0"><el-empty description="暂无数据"></el-empty></div>
+    </div>
+    <div style="font-size: 18px; background: #fff; padding: 20px">精选文章</div>
+    <div class="showCard" style="padding: 10px 20px">
+      <div class="card" v-for="item in bookData" :key="item.id">
+        <img :src="item.img" alt="" />
+        <div style="font-size: 14px; font-weight: bold;text-align:center">
+          {{ item.title }}
         </div>
         <div class="text">
-          <div style="line-height: 28px; font-size: 12px">2022</div>
-          <el-button size="mini">Yue</el-button>
-        </div>
-      </div>
-      <div class="card">
-        <img src="@/assets/img/login.png" alt="" />
-        <div style="font-size: 14px; font-weight: bold">
-          介绍hhhhhhhhhah哈哈哈哈哈哈
-        </div>
-        <div class="text">
-          <div style="line-height: 28px; font-size: 12px">2022</div>
-          <el-button size="mini">Yue</el-button>
-        </div>
-      </div>
-      <div class="card">
-        <img src="@/assets/img/login.png" alt="" />
-        <div style="font-size: 14px; font-weight: bold">
-          介绍hhhhhhhhhah哈哈哈哈哈哈
-        </div>
-        <div class="text">
-          <div style="line-height: 28px; font-size: 12px">2022</div>
-          <el-button size="mini">Yue</el-button>
-        </div>
-      </div>
-      <div class="card">
-        <img src="@/assets/img/login.png" alt="" />
-        <div style="font-size: 14px; font-weight: bold">
-          介绍hhhhhhhhhah哈哈哈哈哈哈
-        </div>
-        <div class="text">
-          <div style="line-height: 28px; font-size: 12px">2022</div>
-          <el-button size="mini">Yue</el-button>
+          <div style="line-height: 28px; font-size: 12px">
+            {{ handleDate(item.updateTime) }}
+          </div>
+          <el-button size="mini">阅读</el-button>
         </div>
       </div>
     </div>
@@ -58,8 +35,28 @@
 </template>
 
 <script>
+import request from "../utils/request";
 export default {
   name: "Home",
+  data() {
+    return {
+      bookData: [],
+    };
+  },
+  created() {
+    this.getBook();
+  },
+  methods: {
+    getBook() {
+      request.get("/file/bookContent").then((res) => {
+        this.bookData = res.data;
+      });
+    },
+    handleDate(e) {
+      let appointDate = /\d{4}-\d{1,2}-\d{1,2}/g.exec(e)[0];
+      return appointDate;
+    },
+  },
 };
 </script>
 
@@ -67,26 +64,12 @@ export default {
 .showCard {
   overflow: hidden;
   justify-content: space-between;
-  background-image: linear-gradient(
-    to bottom,
-    #e6d7df,
-    #ded3dd,
-    #d7d0da,
-    #cfccd7,
-    #c8c9d3,
-    #c7ccd6,
-    #c7ced8,
-    #c6d1da,
-    #cadbe4,
-    #cfe6ec,
-    #d4f1f3,
-    #dbfbf9
-  );
   align-content: flex-start;
 }
 .card {
-  height: 230px;
-  width: 200px;
+  height: 280px;
+  border-radius: 4px;
+  width: 210px;
   float: left;
   margin: 10px 10px;
   padding: 10px;

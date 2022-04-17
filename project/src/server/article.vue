@@ -10,8 +10,8 @@
             tableData.filter(
               (data) =>
                 !search ||
-                data.name.toLowerCase().includes(search.toLowerCase()) ||
-                data.address.toLowerCase().includes(search.toLowerCase())
+                data.theme.toLowerCase().includes(search.toLowerCase()) ||
+                data.updateAt.toLowerCase().includes(search.toLowerCase())
             )
           "
           style="width: 100%"
@@ -25,22 +25,34 @@
           /></template>
           <el-table-column type="index" width="180" align="center" label="序号">
           </el-table-column>
-          <el-table-column prop="date" label="日期" width="180" align="center">
-            <template><i class="el-icon-time"></i></template>
+          <el-table-column prop="theme" label="主题" align="center">
           </el-table-column>
-          <el-table-column prop="name" label="主题" align="center">
+          <el-table-column label="最近操作日期" width="380" align="center">
+            <template slot-scope="scope">
+              <i class="el-icon-time"></i>
+              <span style="margin-left: 10px">{{
+                handleDate(scope.row.updateAt)
+              }}</span>
+            </template>
           </el-table-column>
-          <el-table-column prop="address" label="操作" align="center">
-          </el-table-column>
-          <el-table-column width="200">
-            <template slot="header" slot-scope="scope">
+
+          <el-table-column width="250" align="center">
+            <template slot="header">
               <el-input
                 v-model="search"
                 size="small"
                 placeholder="输入关键字搜索"
                 suffix-icon="el-icon-search"
               />
-              <div :l="scope"></div>
+            </template>
+            <template slot-scope="scope">
+              <el-button type="text" @click="writeInfo(scope.row.id)">查看</el-button>
+              <el-button type="text" @click="updateInfo(scope.row)"
+                >编辑</el-button
+              >
+              <el-button type="text" @click="deleteInfo(scope.row.id)"
+                >删除</el-button
+              >
             </template>
           </el-table-column>
         </el-table>
@@ -50,7 +62,7 @@
             <el-form-item label="主题" prop="name">
               <el-input v-model="form.name" type="text"></el-input>
             </el-form-item>
-            <el-form-item label="权重" v-show="alterName" prop="orderBy">
+            <el-form-item label="权重" prop="orderBy">
               <el-input v-model.number="form.orderBy" type="text"></el-input>
             </el-form-item>
           </el-form>
@@ -67,7 +79,8 @@
 </template>
 
 <script>
-import request from '../utils/request'
+import request from "../utils/request";
+import moment from "moment";
 export default {
   data() {
     return {
@@ -87,33 +100,97 @@ export default {
         name: "",
         orderBy: "",
       },
-      alterName: true,
+      edit: false,
+      updateId: null,
     };
   },
+  created() {
+    this.getInfo();
+  },
   methods: {
+    handleDate(e) {
+      return moment(e).format("YYYY-MM-DD HH:mm:ss");
+    },
+    getInfo() {
+      request.get("/article").then((res) => {
+        this.tableData = res.data;
+      });
+    },
     createArticle() {
       this.isShow = true;
     },
-    submitInfo(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          request.post('/article/create',this.form).then(res=>{
-            this.$message({
-              type:'success',
-              duration:1300,
-              message:`${res.data}`
-            })
-            this.isShow = false
-          }).catch((error)=>{
-            if(error){
-              this.$refs.base.resetFields();
-            }
-          })
-        } else {
-          this.$message.error('请按照规范输入');
-          return false;
-        }
+    updateInfo(e) {
+      this.form.name = e.theme;
+      this.form.orderBy = e.sort;
+      this.isShow = true;
+      this.edit = true;
+      this.updateId = e.id;
+    },
+    deleteInfo(id) {
+      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      }).then(() => {
+        request.delete(`/article/${id}`).then((res) => {
+          this.$message.success(res.data);
+          this.getInfo();
+        });
       });
+    },
+    writeInfo(id) {
+      this.$router.push({
+        name:'writeBook',
+        query: {
+          articleId: id,
+        },
+      });
+      console.log(id);
+    },
+    submitInfo(formName) {
+      if (this.edit) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            request
+              .patch(`/article/${this.updateId}`, this.form)
+              .then((res) => {
+                if (res.data) {
+                  this.$message.success(res.data);
+                  this.getInfo();
+                  this.isShow = false;
+                }
+              })
+              .catch((error) => {
+                if (error) {
+                  this.$refs.base.resetFields();
+                }
+              });
+          }
+        });
+      } else {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            request
+              .post("/article/create", this.form)
+              .then((res) => {
+                this.$message({
+                  type: "success",
+                  duration: 1300,
+                  message: `${res.data}`,
+                });
+                this.isShow = false;
+              })
+              .catch((error) => {
+                if (error) {
+                  this.$refs.base.resetFields();
+                }
+              });
+          } else {
+            this.$message.error("请按照规范输入");
+            return false;
+          }
+        });
+      }
     },
   },
 };

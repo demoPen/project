@@ -21,7 +21,15 @@
 
 <script>
 import { marked } from "marked";
-import { uploadImg, pageCode, getMdText, updateCode } from "@/utils/api.js";
+import {
+  uploadImg,
+  pageCode,
+  getMdText,
+  updateCode,
+  getArticleCode,
+  saveArticle,
+  updateArticle,
+} from "@/utils/api.js";
 export default {
   name: "editBookDetail",
   created() {
@@ -36,6 +44,7 @@ export default {
       value: "",
       render: "",
       first: "",
+      back:true
     };
   },
   methods: {
@@ -71,38 +80,79 @@ export default {
         });
         return false;
       }
-      const { chapterId } = this.$route.query;
-      pageCode(chapterId, this.render, this.value).then((res) => {
-        if (res) {
-          this.$message({
-            type: "success",
-            duration: 1500,
-            message: res.data,
-          });
-        }
-      });
+      const info = this.$route.query;
+      if (Object.keys(info)[0] == "chapterId") {
+        const chapterId = info.chapterId;
+        pageCode(chapterId, this.render, this.value).then((res) => {
+          if (res) {
+            this.$message({
+              type: "success",
+              duration: 1500,
+              message: res.data,
+            });
+          }
+        });
+      } else {
+        const articleId = info.articleId;
+        saveArticle(articleId, this.render, this.value).then((res) => {
+          if (res) {
+            this.$message({
+              type: "success",
+              duration: 1500,
+              message: res.data,
+            });
+          }
+        });
+      }
       return true;
     },
     updateMd() {
-      const { chapterId } = this.$route.query;
-      updateCode(chapterId, this.render, this.value).then((res) => {
-        if (res.data) {
-          this.$message({
-            type: "success",
-            duration: 1500,
-            message: res.data,
-          });
-        }
-      });
+      const info = this.$route.query;
+      if (Object.keys(info)[0] == "chapterId") {
+        const chapterId = info.chapterId;
+        updateCode(chapterId, this.render, this.value).then((res) => {
+          if (res.data) {
+            this.$message({
+              type: "success",
+              duration: 1500,
+              message: res.data,
+            });
+          }
+        });
+      } else {
+        const articleId = info.articleId;
+        // console.log(articleId);
+        updateArticle(articleId, this.render, this.value).then((res) => {
+          if (res.data) {
+            this.$message({
+              type: "success",
+              duration: 1500,
+              message: res.data,
+            });
+          }
+        });
+      }
     },
     getCode() {
-      const { chapterId } = this.$route.query;
-      getMdText(chapterId).then((res) => {
-        this.first = res.data;
+      const info = this.$route.query;
 
-        this.render = res.data[0].md_text;
-        this.value = res.data[0].val;
-      });
+      if (Object.keys(info)[0] == "chapterId") {
+        const chapterId = info.chapterId;
+        getMdText(chapterId).then((res) => {
+          this.first = res.data;
+
+          this.render = res.data[0]?.md_text;
+          this.value = res.data[0]?.val;
+        });
+      } else {
+        const articleId = info.articleId;
+        getArticleCode(articleId).then((res) => {
+          this.first = res.data;
+
+          this.render = res.data[0]?.md_text;
+          this.value = res.data[0]?.val;
+        });
+      }
     },
     IsUpdateOrSave() {
       if (this.first.length == 0) {
@@ -119,8 +169,22 @@ export default {
           this.$router.back();
         }, 1000);
       }
+      this.back = false
     },
   },
+  beforeRouteLeave(to,from,next){
+    if(this.back) {
+         this.$confirm("是否保存当前修改", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      }).then(()=>{
+        this.IsUpdateOrSave()
+      })
+    }else{
+      next()
+    }
+  }
 };
 </script>
 

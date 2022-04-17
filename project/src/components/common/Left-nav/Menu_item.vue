@@ -22,8 +22,7 @@ export default {
   methods: {
     serverPath() {
       this.$router.push(this.path).catch((err) => err);
-      // console.log(this.$route);
-      console.log(this.path);
+  
     },
   },
   computed: {

@@ -30,15 +30,17 @@ class BookService {
       console.log(err);
     }
   };
+
   async getBook() {
     const statement = `
-    SELECT JSON_OBJECT('id',b.id,
-             'title',b.title,
-						 'order',b.weight,
-						 'userId',b.user_id,
-						 'img',CONCAT('http://localhost:9000/file', b.img),
-						 'createTime',b.createAt,
-						 'updateTime',b.updateAt) bookInfo FROM book b;
+    SELECT b.id 'id' ,
+             b.title  'title',
+             b.weight 'order',
+             b.user_id 'userId',
+             CONCAT('http://localhost:9000/file', b.img) 'img',
+             b.createAt 'createTime',
+             b.updateAt 'updateTime'
+					  FROM book b order by b.weight asc;
     `;
     try {
       const [result] = await connection.execute(statement);

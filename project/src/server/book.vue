@@ -125,13 +125,7 @@ export default {
   methods: {
     getBookList() {
       request.get("/file/bookContent").then((res) => {
-        // this.booklist = Object.values(res.data);
-        let bookTable = [];
-        for (let file of res.data) {
-          const { bookInfo } = file;
-          bookTable.push(bookInfo);
-        }
-        this.booklist = bookTable;
+        this.booklist = res.data;
         this.handleBooklist();
       });
     }, //获取所有书籍的数据

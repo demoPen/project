@@ -2,7 +2,7 @@
  <div class="article">
     <main>
       <div class="btngroups">
-        <el-button type="primary" @click="createArticle">新建文章</el-button>
+        <el-button type="primary" @click="createArticle">上传视频</el-button>
       </div>
       <div class="table" v-html='url'>
        <!-- <div ></div> -->
@@ -15,7 +15,7 @@
   export default {
    data() {
      return {
-      url:'<iframe  frameborder="0" src="https://www.ixigua.com/iframe/6908629621038809613?autoplay=0" referrerpolicy="unsafe-url" allowfullscreen></iframe>'
+      url:'<iframe src="//player.bilibili.com/player.html?aid=765670802&bvid=BV1Kr4y1i7ru&cid=557660873&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>'
      };
    },
   }

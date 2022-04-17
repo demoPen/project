@@ -34,7 +34,7 @@ const bookRouter = new Router({
 })
 bookRouter.post('/book', createFileTable, coverHandle, saveCoverInfo) ;//保存图片的地址
 bookRouter.post("/bookInfo", verityToken, saveBookInfo);
-bookRouter.get('/bookContent',verityToken,getBookInfo);
+bookRouter.get('/bookContent',getBookInfo);
 bookRouter.get('/uploads/:iid',getbookCover);
 bookRouter.delete('/book/:id',verityToken,deleteBook);
 bookRouter.patch('/book/:id',verityToken,updateBook);
@@ -50,4 +50,4 @@ bookRouter.post('/code',saveCode);
 bookRouter.get('/code',createCodeTable,getCodeHtml)
 bookRouter.patch('/code',updateCode)
 
-module.exports = bookRouter;
+module.exports = bookRouter; 

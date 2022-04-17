@@ -1,6 +1,7 @@
 const articleService = require('../service/article.service')
 const errorTypes = require("../constants/error-type")
 const Multer = require("koa-multer");
+
 const createArticle = async (ctx,next) =>{
   await articleService.createTable()
   await next()
@@ -17,6 +18,11 @@ const verifyIsName = async (ctx,next) =>{
     await next()
   }
 }//对文章的主题名是否重复进行判断
+ const createCode = async(ctx,next) =>{
+   await articleService.codeTable()
+   await next()
+ }
+
 
 const upload = Multer({
   dest:'./uploads/video'
@@ -26,5 +32,6 @@ const uploads = upload.single('file')
 module.exports = {
   createArticle,
   verifyIsName,
-  uploads
+  uploads,
+  createCode
 }

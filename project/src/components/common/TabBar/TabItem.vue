@@ -17,9 +17,7 @@
     },
     methods: {
       itemClick(){
-        console.log(this.path);
         this.$router.push(this.path).catch(err => err);
-        
       }
     },
     computed: {

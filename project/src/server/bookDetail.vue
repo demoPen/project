@@ -139,6 +139,9 @@ export default {
             });
             this.getchapterList();
             this.isShow = false;
+              Object.keys(this.form).forEach((key) => {
+                this.form[key] = "";
+              });
           })
           .catch((error) => {
             // console.log(error);
