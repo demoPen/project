@@ -3,7 +3,10 @@
     <div style="font-size: 18px; background: #fff; padding: 20px">精选书籍</div>
     <div class="showCard" style="padding: 10px 20px" >
       <div class="card" v-for="item in bookData" :key="item.id" v-show ='bookData.length!==0'>
+        <div class="showImg">
         <img :src="item.img" alt="" />
+
+        </div>
         <div style="font-size: 14px; font-weight: bold;text-align:center">
           {{ item.title }}
         </div>
@@ -80,8 +83,15 @@ export default {
   justify-content: space-between;
   margin-top: 10px;
 }
+.card .showImg {
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .card img {
-  width: 100%;
+  height: 100%;
+  
 }
 .card .text {
   justify-content: space-around;

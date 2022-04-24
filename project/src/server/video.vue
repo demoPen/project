@@ -1,24 +1,74 @@
 <template>
- <div class="article">
+  <div class="article">
     <main>
       <div class="btngroups">
-        <el-button type="primary" @click="createArticle">上传视频</el-button>
+        <el-button type="primary" @click="uploadUrl('location')"
+          >上传本地视频</el-button
+        >
+        <el-button type="primary" @click="uploadUrl('url')"
+          >网页iframe视频</el-button
+        >
       </div>
-      <div class="table" v-html='url'>
-       <!-- <div ></div> -->
+      <div class="table">
+        <el-table stripe :data="tableData" style="width: 100%">
+          <el-table-column prop="date" label="日期" width="180">
+          </el-table-column>
+          <el-table-column prop="name" label="姓名" width="180">
+          </el-table-column>
+          <el-table-column prop="address" label="地址"> </el-table-column>
+        </el-table>
       </div>
+      <modal :urlCode="urlCode" :isShow="isShow" @close="close"></modal>
     </main>
   </div>
 </template>
 
 <script>
-  export default {
-   data() {
-     return {
-      url:'<iframe src="//player.bilibili.com/player.html?aid=765670802&bvid=BV1Kr4y1i7ru&cid=557660873&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>'
-     };
-   },
-  }
+import Modal from "./modal.vue";
+export default {
+  components: {
+    Modal,
+  },
+  data() {
+    return {
+      tableData: [
+        {
+          date: "2016-05-02",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄",
+        },
+        {
+          date: "2016-05-04",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1517 弄",
+        },
+        {
+          date: "2016-05-01",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1519 弄",
+        },
+        {
+          date: "2016-05-03",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1516 弄",
+        },
+      ],
+      isShow: false,
+      
+      urlCode: "",
+    };
+  },
+  methods: {
+    uploadUrl(e) {
+      this.isShow = true;
+      this.urlCode = e == "location";
+    },
+    close(e) {
+      console.log(e);
+      this.isShow = e;
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -41,6 +91,6 @@ main .btngroups {
 }
 .table {
   height: calc(100% - 52px);
+  overflow: scroll;
 }
-
 </style>

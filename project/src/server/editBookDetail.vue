@@ -14,7 +14,7 @@
         @imgAdd="$imgAdd"
         @save="IsUpdateOrSave"
       />
-      <!-- <article v-html="render" class="markdown-body"></article> -->
+      <article v-html="render" class="markdown-body"></article>
     </div>
   </div>
 </template>

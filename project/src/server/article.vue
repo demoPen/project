@@ -38,15 +38,22 @@
 
           <el-table-column width="250" align="center">
             <template slot="header">
-              <el-input
-                v-model="search"
-                size="small"
-                placeholder="输入关键字搜索"
-                suffix-icon="el-icon-search"
-              />
+              <el-form>
+                <el-input-item>
+                  <input
+                    v-model="search"
+                    size="small"
+                    placeholder="输入关键字搜索"
+                    class="search-content"
+                    suffix-icon="el-icon-search"
+                  />
+                </el-input-item>
+              </el-form>
             </template>
             <template slot-scope="scope">
-              <el-button type="text" @click="writeInfo(scope.row.id)">查看</el-button>
+              <el-button type="text" @click="writeInfo(scope.row.id)"
+                >查看</el-button
+              >
               <el-button type="text" @click="updateInfo(scope.row)"
                 >编辑</el-button
               >
@@ -140,7 +147,7 @@ export default {
     },
     writeInfo(id) {
       this.$router.push({
-        name:'writeBook',
+        name: "writeBook",
         query: {
           articleId: id,
         },
@@ -192,6 +199,7 @@ export default {
         });
       }
     },
+    
   },
 };
 </script>
@@ -216,5 +224,14 @@ main .btngroups {
 }
 .table {
   height: calc(100% - 52px);
+}
+.search-content{
+ outline: 0;
+ padding: 5px 12px;
+ border-radius: 0;
+ border: 2px solid rgb(131, 129, 129);
+}
+.search-content:hover{
+  border: 2px solid rgb(58, 68, 181);
 }
 </style>

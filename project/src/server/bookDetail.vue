@@ -65,7 +65,7 @@
         <el-form-item label="章节名称">
           <el-input v-model="form.name" type="text"></el-input>
         </el-form-item>
-        <el-form-item label="章节序号" v-show="alterName">
+        <el-form-item label="章节序号">
           <el-input v-model="form.orderBy" type="number"></el-input>
         </el-form-item>
       </el-form>
