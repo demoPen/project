@@ -19,6 +19,7 @@
         </el-table>
       </div>
       <modal :urlCode="urlCode" :isShow="isShow" @close="close"></modal>
+      
     </main>
   </div>
 </template>
@@ -29,8 +30,10 @@ export default {
   components: {
     Modal,
   },
+
   data() {
     return {
+      player: "",
       tableData: [
         {
           date: "2016-05-02",
@@ -54,7 +57,7 @@ export default {
         },
       ],
       isShow: false,
-      
+
       urlCode: "",
     };
   },
@@ -64,7 +67,6 @@ export default {
       this.urlCode = e == "location";
     },
     close(e) {
-      console.log(e);
       this.isShow = e;
     },
   },

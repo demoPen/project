@@ -1,29 +1,37 @@
 <template>
   <div class="home">
     <div style="font-size: 18px; background: #fff; padding: 20px">精选书籍</div>
-    <div class="showCard" style="padding: 10px 20px" >
-      <div class="card" v-for="item in bookData" :key="item.id" v-show ='bookData.length!==0'>
+    <div class="showCard" style="padding: 10px 20px">
+      <div
+        class="card"
+        v-for="item in bookData"
+        :key="item.id"
+        v-show="bookData.length !== 0"
+      >
         <div class="showImg">
-        <img :src="item.img" alt="" />
-
+          <img :src="item.img" alt="" />
         </div>
-        <div style="font-size: 14px; font-weight: bold;text-align:center">
+        <div style="font-size: 14px; font-weight: bold; text-align: center">
           {{ item.title }}
         </div>
         <div class="text">
           <div style="line-height: 28px; font-size: 12px">
             {{ handleDate(item.updateTime) }}
           </div>
-          <el-button size="mini">阅读</el-button>
+          <el-button size="mini" @click="watchBook(item)">阅读</el-button>
         </div>
       </div>
-      <div class="empty" v-show="bookData.length==0"><el-empty description="暂无数据"></el-empty></div>
+      <div class="empty" v-show="bookData.length == 0">
+        <el-empty description="暂无数据"></el-empty>
+      </div>
     </div>
     <div style="font-size: 18px; background: #fff; padding: 20px">精选文章</div>
     <div class="showCard" style="padding: 10px 20px">
       <div class="card" v-for="item in bookData" :key="item.id">
-        <img :src="item.img" alt="" />
-        <div style="font-size: 14px; font-weight: bold;text-align:center">
+        <div class="showImg">
+          <img :src="item.img" alt="" />
+        </div>
+        <div style="font-size: 14px; font-weight: bold; text-align: center">
           {{ item.title }}
         </div>
         <div class="text">
@@ -59,6 +67,14 @@ export default {
       let appointDate = /\d{4}-\d{1,2}-\d{1,2}/g.exec(e)[0];
       return appointDate;
     },
+    watchBook(item) {
+      this.$router.push({
+        name: "watch",
+        query: {
+          bookId: item.id,
+        },
+      });
+    },
   },
 };
 </script>
@@ -91,7 +107,6 @@ export default {
 }
 .card img {
   height: 100%;
-  
 }
 .card .text {
   justify-content: space-around;

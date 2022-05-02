@@ -90,6 +90,11 @@ const routes = [{
     ]
   },
   {
+    path:'watch',
+    name:'watch',
+    component:() => import('@/views/detail.vue')
+  },
+  {
     path:'*',
     component:NOTFOUND
   }

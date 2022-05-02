@@ -42,6 +42,7 @@
   align-items: center;
   position: relative;
   font-size: 17px;
+  transition: all 2s;
 }
 .ispath::after{
  display: block;
@@ -51,6 +52,7 @@
   height: 3px;
   background-color: cornflowerblue;
   bottom: 0;
+  transition: 2s all;
 }
 .text:hover::after{
   display: block;

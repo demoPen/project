@@ -1,12 +1,17 @@
 const jwt = require("jsonwebtoken");
 
-const { PUBLIC_KEY } = require("../app/config");
+const {
+  PUBLIC_KEY
+} = require("../app/config");
 const md5password = require("../utils/md5-handle");
 const service = require("../service/admin");
 const errorTypes = require("../constants/error-type");
 const verifyLogin = async (ctx, next) => {
   //验证登录
-  const { name, password } = ctx.request.body;
+  const {
+    name,
+    password
+  } = ctx.request.body;
   //判断用户名和密码是否正确
   const result = await service.getUserInfoByname(name);
   if (result === undefined) {
@@ -26,10 +31,11 @@ const verityToken = async (ctx, next) => {
   console.log("我是验证token的中间件");
   try {
     const authorization = ctx.headers.authorization;
-    const token = authorization.replace("Bearer", "");
 
+    const token = authorization.replace("Bearer ", "");
     const result = jwt.verify(token, PUBLIC_KEY, {
       algorithms: ["RS256"],
+
     });
 
     ctx.result = result; //把信息保存到对象中

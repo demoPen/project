@@ -11,4 +11,5 @@ app.use(bodyparser())
 app.useRouter();
 app.on('error',errorHandler)//监听错误信息
 
+
 module.exports = app;

@@ -39,15 +39,14 @@
           <el-table-column width="250" align="center">
             <template slot="header">
               <el-form>
-                <el-input-item>
+                
                   <input
                     v-model="search"
                     size="small"
                     placeholder="输入关键字搜索"
                     class="search-content"
-                    suffix-icon="el-icon-search"
                   />
-                </el-input-item>
+                
               </el-form>
             </template>
             <template slot-scope="scope">
@@ -185,6 +184,7 @@ export default {
                   duration: 1300,
                   message: `${res.data}`,
                 });
+                this.getInfo()
                 this.isShow = false;
               })
               .catch((error) => {
