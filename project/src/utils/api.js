@@ -73,7 +73,13 @@ function getMdText(chapterId){
     }
   })
 }
-
+function saveVideo (type,data) {
+  return request({
+   url:`video/${type}`,
+   method:'POST',
+   data
+  })
+}
 export {
   uploadImg,
   pageCode,
@@ -81,5 +87,6 @@ export {
   updateCode,
   getArticleCode,
   saveArticle,
-  updateArticle
+  updateArticle,
+  saveVideo
 }

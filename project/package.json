@@ -10,7 +10,8 @@
   "dependencies": {
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
-    "element-ui": "^2.15.6",
+    "element-ui": "^2.15.8",
+    "koa-range": "^0.3.0",
     "marked": "^4.0.14",
     "mavon-editor": "^2.10.4",
     "moment": "^2.29.3",

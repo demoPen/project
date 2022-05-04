@@ -164,6 +164,7 @@ export default {
                   this.$message.success(res.data);
                   this.getInfo();
                   this.isShow = false;
+                  this.$refs.base.resetFields();
                 }
               })
               .catch((error) => {
@@ -186,6 +187,7 @@ export default {
                 });
                 this.getInfo()
                 this.isShow = false;
+                this.$refs.base.resetFields();
               })
               .catch((error) => {
                 if (error) {

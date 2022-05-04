@@ -38,14 +38,14 @@ class VideoService {
     CREATE TABLE IF NOT EXISTS video_location(
       id INT PRIMARY KEY AUTO_INCREMENT,
       describeText VARCHAR(200),
-      video VARCHAR(20),
+      video VARCHAR(200),
       file VARCHAR(200)
     )
     `
    try {
      await connection.execute(statement)
    } catch (error) {
-     
+     console.log(error);
    }
   };
 
@@ -57,7 +57,58 @@ class VideoService {
    } catch (error) {
      console.log(error);
    }
- }
+  }
+
+  async getLocationVideo(type) {
+    const statement =`select * from ${type}`
+    try {
+      const [res] = await connection.execute(statement)
+        return res
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async deleteVideo(id){
+    const statement = `delete from video_location where id =? `
+    try {
+      await connection.execute(statement,[id])
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  async createiframeTable(){
+    const statement = `CREATE TABLE IF NOT EXISTS iframe(
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      describeText VARCHAR(100),
+      iframe VARCHAR(200)
+    )
+    `
+  try {
+    await connection.execute(statement)
+  } catch (error) {
+    console.log(error);
+  }
+  }
+
+  async saveIframeByCode(iframe,desc){
+   const statement = `insert into iframe(describeText,iframe) values(?,?)`
+   try {
+     await connection.execute(statement,[desc,iframe])
+   } catch (error) {
+     
+   }
+  }
+
+  async deleteCode(id){
+    const statement = `delete from iframe where id =? `
+    try {
+      await connection.execute(statement,[id])
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 module.exports = new VideoService();

@@ -18,7 +18,9 @@ import {
   CarouselItem,
   Card,
   Row,
-  Col
+  Col,
+  Collapse,
+  CollapseItem
 } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(Button);
@@ -38,6 +40,8 @@ Vue.use(Col)
 Vue.use(Row)
 Vue.use(Radio);
 Vue.use(RadioGroup)
+Vue.use( Collapse)
+Vue.use(CollapseItem)
 
 Vue.prototype.$message = Message;
 Vue.prototype.$confirm = MessageBox.confirm;

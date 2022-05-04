@@ -26,8 +26,14 @@ const createInfoTable = async(ctx,next) =>{
   await service.createInfoTable()
   await next()
 }
+
+const createiframe = async(ctx,next)=>{
+  await service.createiframeTable()
+  await next()
+}
 module.exports = {
   videoUploads,
   createTable,
-  createInfoTable
+  createInfoTable,
+  createiframe
 }
