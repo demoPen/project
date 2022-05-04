@@ -90,9 +90,14 @@ const routes = [{
     ]
   },
   {
-    path:'watch',
+    path:'/watch',
     name:'watch',
     component:() => import('@/views/detail.vue')
+  },
+  {
+    path:'/views',
+    name:'look',
+    component:() => import('@/views/look.vue')
   },
   {
     path:'*',

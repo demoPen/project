@@ -23,12 +23,12 @@
         </tab-item>
       </tab-bar>
       <div class="wrap">
-        <div class="search">
+        <!-- <div class="search">
           <input type="text" class="searchTerm" placeholder="搜索" />
           <button type="submit" class="searchButton">
             <img src="@/assets/img/search.png" alt="" />
           </button>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="content">
@@ -132,5 +132,8 @@ export default {
   flex: 1;
 
   background: #ebedee;
+}
+.wrap{
+  width: 200px;
 }
 </style>

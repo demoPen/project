@@ -39,14 +39,12 @@
           <el-table-column width="250" align="center">
             <template slot="header">
               <el-form>
-                
-                  <input
-                    v-model="search"
-                    size="small"
-                    placeholder="输入关键字搜索"
-                    class="search-content"
-                  />
-                
+                <input
+                  v-model="search"
+                  size="small"
+                  placeholder="输入关键字搜索"
+                  class="search-content"
+                />
               </el-form>
             </template>
             <template slot-scope="scope">
@@ -73,7 +71,7 @@
             </el-form-item>
           </el-form>
           <span slot="footer" class="dialog-footer">
-            <el-button>取 消</el-button>
+            <el-button @click="cancel">取 消</el-button>
             <el-button type="primary" @click="submitInfo('base')"
               >确 定</el-button
             >
@@ -132,6 +130,9 @@ export default {
       this.edit = true;
       this.updateId = e.id;
     },
+    cancel() {
+      this.isShow = false;
+    },
     deleteInfo(id) {
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
         confirmButtonText: "确定",
@@ -185,7 +186,7 @@ export default {
                   duration: 1300,
                   message: `${res.data}`,
                 });
-                this.getInfo()
+                this.getInfo();
                 this.isShow = false;
                 this.$refs.base.resetFields();
               })
@@ -201,7 +202,6 @@ export default {
         });
       }
     },
-    
   },
 };
 </script>
@@ -227,13 +227,13 @@ main .btngroups {
 .table {
   height: calc(100% - 52px);
 }
-.search-content{
- outline: 0;
- padding: 5px 12px;
- border-radius: 0;
- border: 2px solid rgb(131, 129, 129);
+.search-content {
+  outline: 0;
+  padding: 5px 12px;
+  border-radius: 0;
+  border: 2px solid rgb(131, 129, 129);
 }
-.search-content:hover{
+.search-content:hover {
   border: 2px solid rgb(58, 68, 181);
 }
 </style>
