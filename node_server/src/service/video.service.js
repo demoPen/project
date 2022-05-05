@@ -5,7 +5,7 @@ class VideoService {
     const statement = `
     CREATE TABLE IF NOT EXISTS video(
       id INT AUTO_INCREMENT PRIMARY KEY,
-      mimetype varchar(20),
+      mimetype varchar(200),
       fileName VARCHAR(200)
      )
     `;
@@ -19,7 +19,7 @@ class VideoService {
     try {
       await connection.execute(statement, [mimetype, fileName])
     } catch (error) {
-
+      console.log(error);
     }
   };
 

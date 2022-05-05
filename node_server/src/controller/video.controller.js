@@ -4,12 +4,15 @@ class VideoController {
   async videoData(ctx, next) {
     const {
       filename,
-      mimetype
+      mimetype,
+      originalname
     } = ctx.req.file
+
     await service.saveVideo(mimetype, filename)
     ctx.body = {
       url: `http://localhost:9000/video/base/${filename}`,
-      filename: filename
+      filename: filename,
+      originalname
     }
   };
 
