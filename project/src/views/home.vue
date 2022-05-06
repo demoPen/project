@@ -39,7 +39,7 @@
           <el-button size="mini" @click="watchBook(item)">阅读</el-button>
         </div>
       </div>
-      <div class="empty" v-show="bookData.length == 0">
+      <div class="empty" v-show="filterData.length == 0">
         <el-empty description="暂无数据"></el-empty>
       </div>
     </div>
@@ -69,6 +69,9 @@
           <h6 style="margin-top: 10px">{{ handleDate(item.updateAt) }}</h6>
         </div>
       </div>
+       <div class="empty" v-show="filterArticle.length == 0">
+        <el-empty description="暂无数据"></el-empty>
+      </div>
     </div>
 
     <div
@@ -86,7 +89,7 @@
         <el-input
           placeholder="请输入关键词进行搜索"
           suffix-icon="el-icon-search"
-          v-model="search"
+          v-model="search3"
         ></el-input>
       </div>
     </div>
@@ -98,7 +101,7 @@
         </div>
         <video :src="item.video" controls></video>
       </el-card>
-      <div class="empty" v-show="filterData.length == 0">
+      <div class="empty" v-show="filterVideo.length == 0">
         <el-empty description="暂无数据"></el-empty>
       </div>
     </div>
@@ -115,6 +118,7 @@ export default {
       articleData: [],
       search: "",
       search2: "",
+      search3:'',
       location:[]
     };
   },
@@ -125,9 +129,9 @@ export default {
   },
   computed: {
     filterVideo() {
-      return this.search
+      return this.search3
         ? this.location.filter((item) =>
-            item.describeText.includes(this.search)
+            item.describeText.includes(this.search3)
           )
         : this.location;
     },
