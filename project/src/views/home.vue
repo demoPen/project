@@ -43,7 +43,7 @@
         <el-empty description="暂无数据"></el-empty>
       </div>
     </div>
-     <div
+    <div
       style="font-size: 18px; background: #fff; padding: 20px; display: flex"
       class="head"
     >
@@ -70,6 +70,38 @@
         </div>
       </div>
     </div>
+
+    <div
+      style="font-size: 18px; background: #fff; padding: 20px; display: flex"
+      class="head"
+    >
+      <div style="line-height: 40px">
+        <i
+          class="el-icon-notebook-1"
+          style="color: #5a5ad9; margin-right: 10px"
+        ></i
+        >精选视频
+      </div>
+      <div class="search">
+        <el-input
+          placeholder="请输入关键词进行搜索"
+          suffix-icon="el-icon-search"
+          v-model="search"
+        ></el-input>
+      </div>
+    </div>
+
+    <div style="overflow: hidden">
+      <el-card class="box-card" v-for="item in filterVideo" :key="item.id">
+        <div slot="header" class="clearfix">
+          <span>{{ item.describeText }}</span>
+        </div>
+        <video :src="item.video" controls></video>
+      </el-card>
+      <div class="empty" v-show="filterData.length == 0">
+        <el-empty description="暂无数据"></el-empty>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -82,14 +114,23 @@ export default {
       bookData: [],
       articleData: [],
       search: "",
-      search2:''
+      search2: "",
+      location:[]
     };
   },
   created() {
     this.getBook();
     this.getInfo();
+    this.getVideo();
   },
   computed: {
+    filterVideo() {
+      return this.search
+        ? this.location.filter((item) =>
+            item.describeText.includes(this.search)
+          )
+        : this.location;
+    },
     filterData() {
       return this.search
         ? this.bookData.filter((item) => item.title.includes(this.search))
@@ -105,6 +146,11 @@ export default {
     getBook() {
       request.get("/file/bookContent").then((res) => {
         this.bookData = res.data.splice(0, 5);
+      });
+    },
+    getVideo() {
+      request.get("/video/videoInfo").then((res) => {
+        this.location = res.data;
       });
     },
     getInfo() {
@@ -124,15 +170,15 @@ export default {
         },
       });
     },
-    watchArticle(id){
-       this.$router.push({
+    watchArticle(id) {
+      this.$router.push({
         name: "look",
         query: {
           id: id.id,
-          theme:id.theme
+          theme: id.theme,
         },
       });
-    }
+    },
   },
 };
 </script>
