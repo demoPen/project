@@ -250,4 +250,15 @@ export default {
 .head {
   justify-content: space-between;
 }
+.box-card {
+  width: 300px;
+  height: 180px;
+  float: left;
+  margin-right: 20px;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+}
 </style>

@@ -40,7 +40,7 @@
         :on-success="handleSuccess"
       >
         <i class="el-icon-upload"></i>
-        <div class="el-upload__text">将视频拖到此处，或<em>点击上传</em></div>
+        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
         <div class="el-upload__tip" slot="tip"></div>
       </el-upload>
       <el-form :model="form" ref="base" :rules="rules">
